@@ -1,0 +1,31 @@
+# ========================
+# BACKEND (Spring Boot)
+# ========================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.idea/
+backend/*.log
+
+# ========================
+# FRONTEND (React)
+# ========================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ========================
+# IDEs
+# ========================
+.vscode/
+.idea/
+
+# ========================
+# OS FILES
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# ENV FILES
+# ========================
+.env
