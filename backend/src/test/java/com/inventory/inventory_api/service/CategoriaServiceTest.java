@@ -1,5 +1,6 @@
 package com.inventory.inventory_api.service;
 
+import com.inventory.inventory_api.dto.CategoriaResponseDTO;
 import com.inventory.inventory_api.entity.Categoria;
 import com.inventory.inventory_api.repository.CategoriaRepository;
 
@@ -32,7 +33,7 @@ class CategoriaServiceTest {
 
         when(repository.findAll()).thenReturn(List.of(c));
 
-        List<Categoria> result = service.listar();
+        List<CategoriaResponseDTO> result = service.listar();
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getNombre()).isEqualTo("Tecnologia");

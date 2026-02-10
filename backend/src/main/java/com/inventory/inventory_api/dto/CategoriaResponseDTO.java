@@ -6,4 +6,5 @@ public record CategoriaResponseDTO(
         String nombre,
         String descripcion
 ) {
+
 }
