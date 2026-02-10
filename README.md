@@ -1,131 +1,200 @@
-📦 Inventory Management System – Technical Test
+# 📦 Inventory Management System – Prueba Técnica
 
-Sistema de Gestión de Inventario y Ventas desarrollado como prueba técnica para Backend Developer.
+Sistema de Gestión de Inventario y Ventas desarrollado con **Spring Boot + MySQL + React + Docker**.  
+Incluye autenticación JWT, control de concurrencia con Optimistic Locking, transacciones y consumo desde frontend.
 
-El proyecto implementa una API REST con Spring Boot, MySQL y autenticación JWT, además de un frontend en React + TypeScript y un entorno Dockerizado para facilitar su ejecución.
+---
 
-🧱 Arquitectura
-inventory-system/
-│
-├── backend/        # API Spring Boot
-├── frontend/       # React + TypeScript
-├── docker-compose.yml
-└── README.md
+## 🚀 Tecnologías Utilizadas
 
-🛠️ Tecnologías
-Backend
+### Backend
+- Java 21  
+- Spring Boot 3  
+- Spring Data JPA  
+- Spring Security + JWT  
+- MySQL  
+- Maven  
 
-Java 21
+### Frontend
+- React  
+- TypeScript  
+- TailwindCSS v4  
+- Axios  
 
-Spring Boot 3
+### Infraestructura
+- Docker  
+- Docker Compose  
 
-Spring Data JPA
+---
 
-Spring Security + JWT
+## 📐 Arquitectura
 
-MySQL
+```
+inventory/
+ ├── backend/   -> API REST Spring Boot
+ ├── frontend/  -> React + Tailwind
+ └── docker-compose.yml
+```
 
-Maven
+Arquitectura basada en capas:
 
-Frontend
+```
+Controller → Service → Repository → Database
+           → DTOs
+```
 
-React
+Las entidades **no se exponen directamente** al cliente.
 
-TypeScript
+---
 
-Vite
+## 🗄 Modelo de Datos
 
-Infraestructura
+- categorias  
+- productos  
+- ventas  
+- detalle_ventas  
 
-Docker
+Incluye:
 
-Docker Compose
+- Relación Producto → Categoría  
+- Relación Venta → DetalleVenta  
+- Campo `@Version` en Producto para control de concurrencia (Optimistic Locking)
 
-⚙️ Requisitos
+---
 
-Docker
+## 🔐 Seguridad
 
-Docker Compose
+- Login mediante `/auth/login`  
+- Autenticación con JWT  
+- Endpoints protegidos requieren:
 
-(No es necesario tener Java, Node ni MySQL instalados localmente)
+```
+Authorization: Bearer <TOKEN>
+```
 
-🚀 Cómo ejecutar el proyecto
+---
 
-Desde la raíz del proyecto:
+## ⚙️ Configuración del Proyecto
 
-docker compose up --build
+### Clonar repositorio
 
+```
+git clone <repo_url>
+cd inventory
+```
 
-O en segundo plano:
+---
 
+### Ejecutar con Docker
+
+```
 docker compose up -d
+```
 
-🌐 Servicios disponibles
+Servicios:
 
-Backend API:
-http://localhost:8080
+- Backend → http://localhost:8080  
+- Frontend → http://localhost:5173  
+- MySQL → 3306  
+
+---
+
+### Ejecutar manual
+
+Backend:
+
+```
+cd backend
+mvn clean package
+mvn spring-boot:run
+```
 
 Frontend:
-http://localhost:5173
 
-MySQL:
-localhost:3306
+```
+cd frontend
+npm install
+npm run dev
+```
 
-Credenciales MySQL:
+---
 
-Database: inventorydb
-User: inventory
-Password: inventory123
+## 📑 Swagger
 
-🧪 Ejecutar pruebas
-
-Entrar al contenedor backend:
-
-docker exec -it inventory_backend bash
-
-
-Luego:
-
-mvn test
-
-📌 Funcionalidades
-
-CRUD de productos
-
-Paginación y filtros
-
-Registro de ventas
-
-Control de stock
-
-Transacciones atómicas
-
-Autenticación con JWT
-
-Manejo de concurrencia con Optimistic Locking
-
-Pruebas unitarias e integración
-
-🔐 Estrategia de Concurrencia
-
-Se utiliza Optimistic Locking mediante el campo version en la entidad Producto.
-
-Cada vez que se actualiza el stock, Hibernate valida que la versión no haya cambiado.
-Si dos transacciones intentan modificar el mismo registro al mismo tiempo, una de ellas falla automáticamente, evitando stock negativo.
-
-Además, el proceso de venta se ejecuta dentro de una transacción:
-
-@Transactional
-
-
-Esto garantiza rollback completo si ocurre cualquier error.
-
-📖 Documentación API
-
-Swagger disponible en:
-
+```
 http://localhost:8080/swagger-ui.html
+```
 
-🧾 Autor
+---
+
+## 🧪 Credenciales
+
+```
+Usuario: admin
+Password: admin123
+```
+
+---
+
+## 📌 Funcionalidades
+
+### Categorías
+- Crear  
+- Listar  
+- Editar  
+- Eliminar  
+
+### Productos
+- CRUD completo  
+- Paginación  
+- Filtros  
+
+### Ventas
+- Crear venta  
+- Validar stock  
+- Actualizar inventario  
+
+---
+
+## 🛒 Flujo de Venta
+
+1. Seleccionar productos  
+2. Agregar al carrito  
+3. Comprar  
+4. Backend valida stock y guarda venta  
+
+Si no hay stock → rollback.
+
+---
+
+## 🔁 Concurrencia
+
+Optimistic Locking:
+
+```
+@Version
+private Long version;
+```
+
+---
+
+## 🧪 Pruebas
+
+```
+mvn test
+```
+
+---
+
+## 📌 Decisiones Técnicas
+
+- DTOs  
+- JWT  
+- Transacciones  
+- Docker  
+
+---
+
+## 👨‍💻 Autor
 
 Roberto Antonio Alferes Gómez
