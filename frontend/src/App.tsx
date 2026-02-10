@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Login from "./pages/Login";
-import Productos from "./pages/Productos";
+import Store from "./pages/Store";
 
 function App() {
 
@@ -8,9 +8,11 @@ function App() {
     !!localStorage.getItem("token")
   );
 
-  if(!auth) return <Login onLogin={()=>setAuth(true)} />
+  if (!auth) {
+    return <Login onLogin={() => setAuth(true)} />;
+  }
 
-  return <Productos />;
+  return <Store />;
 }
 
 export default App;
